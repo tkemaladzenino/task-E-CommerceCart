@@ -107,7 +107,6 @@
 
   .dropdown:hover .dropdown-menu {
       display: block;
-
   }
 
   .dropdown-menu li {
@@ -132,7 +131,7 @@
       z-index: 2;
   }
 
-  @media screen and (max-width: 768) {
+  @media screen and (max-width: 768px) {
       .menu {
           display: none;
       }
@@ -141,6 +140,137 @@
 
   .navbar-nav li {
       color: #8B8E99;
+      padding-left: 10px;
   }
 
-  /*------------*/
+  /*--------------------main-part -----*/
+
+  .title p {
+      font-family: Poppins;
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 80px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #FFFFFF;
+  }
+
+  .text {
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #8B8E99;
+  }
+
+  ::placeholder {
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #8B8E99;
+  }
+
+  input {
+      position: relative;
+      width: 443px;
+      height: 60px;
+      border-radius: 15px;
+      padding-left: 48px;
+
+      width: 100%;
+      padding-left: 40px;
+  }
+
+  .rectangle {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 112px;
+      height: 45px;
+      background: #3858D6;
+      border-radius: 8px;
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 23px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #FFFFFF;
+      outline: none;
+
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+
+  }
+
+  /* ------------------*/
+
+  .input-div {
+      position: relative;
+  }
+
+  .input-icon {
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+  }
+
+
+
+  @media screen and (max-width: 768px) {
+
+      .title p {
+          font-size: 40px;
+          line-height: 48px;
+      }
+  }
+
+  @media screen and (max-width: 768px) {
+
+      .rectangle {
+          width: 78px;
+          font-size: 12px;
+          height: 40px;
+      }
+
+      ::placeholder {
+          font-size: 12px;
+      }
+
+
+  }
+
+
+
+  /*------------------*/
+
+
+  .textApple {
+      font-family: Inter;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 44px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1E1D1D;
+  }
+
+  .textContent {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #8B8E99;
+  }
