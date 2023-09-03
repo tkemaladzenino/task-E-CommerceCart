@@ -1,0 +1,146 @@
+  @font-face {
+      font-family: Manrope;
+      src: url(../../fonts/Roboto-Regular.ttf)
+  }
+
+
+
+  @font-face {
+      font-family: Poppins;
+      src: url(../../fonts/Poppins-Regular.ttf)
+  }
+
+
+  body {
+      background-color: black;
+  }
+
+
+  .logo {
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #fff;
+  }
+
+  .header {
+      justify-content: space-between;
+      align-items: center;
+  }
+
+
+  .menu {
+
+      list-style: none;
+      padding: 0;
+      padding-left: 10px;
+      text-align: center;
+
+  }
+
+  .menu li {
+      display: inline-block;
+      margin-right: 20px;
+      list-style: none;
+      padding: 0;
+      text-align: center;
+
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+  }
+
+  .menu li:last-child {
+      margin-right: 0;
+  }
+
+  .menu a {
+      color: #8B8E99;
+      text-decoration: none;
+  }
+
+
+  .custom-navbar-toggler span {
+      display: block;
+      width: 10px;
+      height: 2px;
+      background-color: white;
+      margin-bottom: 2q;
+      transition: background-color 0.3s;
+
+  }
+
+
+  @media screen and (min-width: 768) {
+
+      .custom-navbar-toggler span {
+          display: none;
+      }
+  }
+
+  .dropdown i::after {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 0;
+      vertical-align: middle;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #8B8E99;
+      background: transparent;
+      margin-left: 5px;
+  }
+
+  .dropdown-menu {
+      display: none;
+      position: absolute !important;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  .dropdown:hover .dropdown-menu {
+      display: block;
+
+  }
+
+  .dropdown-menu li {
+      padding-bottom: 2px;
+      padding-left: 10px;
+  }
+
+  .dropdown-menu li a {
+      color: #8B8E99;
+      text-decoration: none;
+  }
+
+  .ellipse-d {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: blue;
+      color: white;
+      z-index: 2;
+  }
+
+  @media screen and (max-width: 768) {
+      .menu {
+          display: none;
+      }
+
+  }
+
+  .navbar-nav li {
+      color: #8B8E99;
+  }
+
+  /*------------*/
