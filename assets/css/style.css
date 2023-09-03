@@ -145,7 +145,7 @@
 
   /*--------------------main-part -----*/
 
-  .title p {
+  .title1 p {
       font-family: Poppins;
       font-size: 64px;
       font-weight: 700;
@@ -225,11 +225,16 @@
       transform: translateY(-50%);
   }
 
+  @media screen and (max-width: 1440px) {
 
+      .aaa img {
+          padding-left: 40px;
+      }
+  }
 
   @media screen and (max-width: 768px) {
 
-      .title p {
+      .title1 p {
           font-size: 40px;
           line-height: 48px;
       }
@@ -273,4 +278,43 @@
       letter-spacing: 0em;
       text-align: left;
       color: #8B8E99;
+  }
+
+
+  /*----------      product-div-----------*/
+
+
+  .blueText {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #3858D6;
+  }
+
+  .blackText {
+      font-family: Inter;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 44px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #1E1D1D;
+  }
+
+  .btn-1 {
+      width: 196px;
+      height: 46px;
+      background: #3858D6;
+      border-radius: 10px;
+
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 27px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #FFFFFF;
   }
