@@ -318,3 +318,70 @@
       text-align: center;
       color: #FFFFFF;
   }
+
+  .Ham {
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 29px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1E1D1D;
+  }
+
+  .Hamtext {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #8B8E99;
+  }
+
+
+  /*---------------  carousel--------------------*/
+
+
+
+
+  /* -------------end  carousel  ---------------*/
+
+
+  /* ---------------------*/
+
+  .Subscribe {
+      font-family: Inter;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 44px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1E1D1D;
+  }
+
+  .get {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #8B8E99;
+  }
+
+
+
+
+
+  /* -----------------footer---------------*/
+  .foot {
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #FFFFFF;
+
+  }
