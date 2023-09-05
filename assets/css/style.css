@@ -306,7 +306,8 @@
 
   .info {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      justify-content: center;
       width: 100%;
       margin-top: 10px;
   }
@@ -320,8 +321,11 @@
   }
 
   .price {
-      color: green;
-      align-self: flex-end;
+      display: flex;
+      justify-content: center;
+
+      color: black;
+
   }
 
   /*----------    end  product-div-----------*/

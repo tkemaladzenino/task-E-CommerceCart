@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
 const productIdsRow1 = [2, 3, 4];
 const productIdsRow2 = [7, 8, 10];
 
@@ -51,7 +49,7 @@ function populateProductsInRow(rowId, productIds) {
 
                     imageElement.innerHTML = `<img src="${product.image}" alt="${product.title}" />`;
                     titleElement.textContent = product.title;
-                    ratingElement.textContent = `Rating: ${product.rating}`;
+                    ratingElement.textContent = `Rating: ${product.rating.rate}`;
                     priceElement.textContent = `$${product.price.toFixed(2)}`;
                 }
             }
@@ -63,6 +61,8 @@ function populateProductsInRow(rowId, productIds) {
 
 populateProductsInRow("row1", productIdsRow1);
 populateProductsInRow("row2", productIdsRow2);
+
+
 
 
 
