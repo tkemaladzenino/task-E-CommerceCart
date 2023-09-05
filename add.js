@@ -71,12 +71,44 @@ populateProductsInRow("row2", productIdsRow2);
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const span1 = document.getElementById("span1");
-    const wishImage = document.getElementById("w3");
-    let count = 1;
 
-    wishImage.addEventListener("click", () => {
+    const wishImage1 = document.getElementById("w1");
+    const wishImage2 = document.getElementById("w2");
+    const wishImage3 = document.getElementById("w3");
+    const wishImage4 = document.getElementById("w4");
+    const wishImage5 = document.getElementById("w5");
+    const wishImage6 = document.getElementById("w6");
+    let count = 0;
+
+    wishImage1.addEventListener("click", () => {
+        count++;
+        span1.textContent = count;
+    });
+
+    wishImage2.addEventListener("click", () => {
+        count++;
+        span1.textContent = count;
+    });
+
+    wishImage3.addEventListener("click", () => {
+        count++;
+        span1.textContent = count;
+    });
+
+    wishImage4.addEventListener("click", () => {
+        count++;
+        span1.textContent = count;
+    });
+
+    wishImage5.addEventListener("click", () => {
+        count++;
+        span1.textContent = count;
+    });
+
+    wishImage6.addEventListener("click", () => {
         count++;
         span1.textContent = count;
     });
