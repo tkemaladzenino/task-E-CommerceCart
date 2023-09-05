@@ -68,3 +68,16 @@ populateProductsInRow("row2", productIdsRow2);
 
 
 
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const span1 = document.getElementById("span1");
+    const wishImage = document.getElementById("w3");
+    let count = 1;
+
+    wishImage.addEventListener("click", () => {
+        count++;
+        span1.textContent = count;
+    });
+});
