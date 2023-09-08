@@ -68,10 +68,6 @@ populateProductsInRow("row2", productIdsRow2);
 
 
 
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const span1 = document.getElementById("span1");
 
@@ -113,3 +109,184 @@ document.addEventListener("DOMContentLoaded", function () {
         span1.textContent = count;
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const span1 = document.getElementById("span1");
+    const basketList = document.getElementById("basketList");
+    const basketOffcanvas = new bootstrap.Offcanvas(document.getElementById("basketOffcanvas"));
+
+    let count = parseInt(span1.textContent) || 0;
+
+    // Create a function to add a product to the cart
+    function addToCart(productId) {
+        count++;
+        span1.textContent = count;
+
+        axios.get(`https://fakestoreapi.com/products/${productId}`)
+            .then(response => {
+                const productData = response.data;
+
+                const listItem = document.createElement("li");
+                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+                listItem.innerHTML = `
+                    <div>
+                        <img src="${productData.image}" alt="${productData.title}" width="40">
+                        <span class="ms-2">${productData.title}</span>
+                    </div>
+                    <div>
+                        <span>$${productData.price.toFixed(2)}</span>
+                        <button class="btn btn-danger btn-sm ms-2" data-product-id="${productId}">Delete</button>
+                    </div>
+                `;
+
+                // Attach a click event listener to the delete button
+                const deleteButton = listItem.querySelector("button");
+                deleteButton.addEventListener("click", () => {
+                    removeCartItem(productId);
+                });
+
+                basketList.appendChild(listItem);
+                basketOffcanvas.show();
+            })
+            .catch(error => {
+                console.error("Error fetching product:", error);
+            });
+    }
+
+    // Create a function to remove a product from the cart
+    function removeCartItem(productId) {
+        // Remove the item from the cart UI
+        const cartItems = basketList.querySelectorAll("li");
+        cartItems.forEach(item => {
+            const deleteButton = item.querySelector("button");
+            if (deleteButton.getAttribute("data-product-id") === productId.toString()) {
+                item.remove();
+            }
+        });
+
+        // Update the count in span1 and close the cart if it's empty
+        count--;
+        span1.textContent = count;
+        if (count === 0) {
+            basketOffcanvas.hide();
+        }
+    }
+
+    // Attach click event listeners to your product images (w1, w2, ...)
+    const productIds = [2, 3, 4, 7, 8, 10]; // Product IDs associated with w1, w2, ...
+    const productImages = ["w1", "w2", "w3", "w4", "w5", "w6"]; // IDs of your product images
+    productImages.forEach((productImage, index) => {
+        const element = document.getElementById(productImage);
+        element.addEventListener("click", () => {
+            const productId = productIds[index];
+            addToCart(productId);
+        });
+    });
+});
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const icon3 = document.getElementById("ic3");
+    const basketOffcanvas = new bootstrap.Offcanvas(document.getElementById("basketOffcanvas"));
+    const basketOffcanvasElement = document.getElementById("basketOffcanvas");
+
+    icon3.addEventListener("click", () => {
+        // Calculate the position for the offcanvas based on icon3's position
+        const icon3Rect = icon3.getBoundingClientRect();
+        const offsetX = window.innerWidth - 90 - basketOffcanvasElement.offsetWidth;
+        const offsetY = icon3Rect.bottom + 20;
+
+        // Set the calculated position for the offcanvas
+        basketOffcanvasElement.style.left = `${offsetX}px`;
+        basketOffcanvasElement.style.top = `${offsetY}px`;
+
+        basketOffcanvas.show(); // Open the offcanvas
+    });
+});
+
+
+
+
+
+
+
+
+// ---------------   total   -----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
