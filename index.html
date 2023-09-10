@@ -16,13 +16,6 @@
         crossorigin="anonymous"></script>
 
 
-
-    <!-- Add these links in your HTML file's <head> section -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
@@ -93,12 +86,9 @@
             style="max-height: 250px;">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="basketOffcanvasLabel">Shopping Basket</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close text-reset" id="customCloseButton" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-
-
 
                 <!-- Display the cart count and total value -->
                 <ul id="basketList" class="list-group">
@@ -106,8 +96,7 @@
                 </ul>
 
                 <div>Total Quantity: <span id="total-quantity">0</span></div>
-                <div>Total Price: <span id="total-price">$0.00</span></div>
-
+                <div>Total Price: <span id="total-price">0</span></div>
 
             </div>
         </div>
