@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
+
+
 const productIdsRow1 = [2, 3, 4];
 const productIdsRow2 = [7, 8, 10];
 
@@ -66,7 +70,7 @@ populateProductsInRow("row2", productIdsRow2);
 
 
 
-
+//chose products +
 
 document.addEventListener("DOMContentLoaded", function () {
     const span1 = document.getElementById("span1");
@@ -113,74 +117,148 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+//new ic3 +
+
+document.addEventListener("DOMContentLoaded", function () {
+    const icon3 = document.getElementById("ic3");
+    const basketOffcanvasElement = document.getElementById("offcanvasScrolling");
+    const basketOffcanvas = new bootstrap.Offcanvas(basketOffcanvasElement);
+
+    icon3.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent any event propagation to elements with product IDs
+        const offsetX = window.innerWidth - basketOffcanvasElement.offsetWidth - 10; // Adjust the offset as needed
+        const offsetY = 10; // Adjust the offset as needed
+
+        basketOffcanvasElement.style.left = `${offsetX}px`;
+        basketOffcanvasElement.style.top = `${offsetY}px`;
+
+        basketOffcanvas.show();
+    });
+
+    // Add a click event listener to the document body to hide the offcanvas if it's open
+    document.body.addEventListener("click", () => {
+        if (basketOffcanvasElement.classList.contains("show")) {
+            basketOffcanvas.hide();
+        }
+    });
+});
 
 
 
 
 
-
+//  sum price in basketlist
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const span1 = document.getElementById("span1");
     const basketList = document.getElementById("basketList");
-    const basketOffcanvas = new bootstrap.Offcanvas(document.getElementById("basketOffcanvas"));
+    const totalQuantityElement = document.getElementById("total-quantity");
+    const totalPriceElement = document.getElementById("total-price");
 
-    let count = parseInt(span1.textContent) || 0;
+    // Create an array to store the items in the cart
+    const cart = [];
+
+    // Function to update the total-quantity and total-price elements
+    function updateCartInfo() {
+        const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+        const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        totalQuantityElement.textContent = totalQuantity;
+        totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+        span1.textContent = totalQuantity; // Update span1 as well
+    }
+
+
+
+
 
     // Create a function to add a product to the cart
     function addToCart(productId) {
-        count++;
-        span1.textContent = count;
-
+        // Fetch product data and add it to the cart
         axios.get(`https://fakestoreapi.com/products/${productId}`)
             .then(response => {
                 const productData = response.data;
 
-                const listItem = document.createElement("li");
-                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
-                listItem.innerHTML = `
-                    <div>
-                        <img src="${productData.image}" alt="${productData.title}" width="40">
-                        <span class="ms-2">${productData.title}</span>
-                    </div>
-                    <div>
-                        <span>$${productData.price.toFixed(2)}</span>
-                        <button class="btn btn-danger btn-sm ms-2" data-product-id="${productId}">Delete</button>
-                    </div>
-                `;
+                // Find the index of the product in the cart
+                const cartItemIndex = cart.findIndex(item => item.id === productId);
 
-                // Attach a click event listener to the delete button
-                const deleteButton = listItem.querySelector("button");
-                deleteButton.addEventListener("click", () => {
-                    removeCartItem(productId);
-                });
+                if (cartItemIndex !== -1) {
+                    // If the product is already in the cart, increment its quantity
+                    cart[cartItemIndex].quantity++;
+                } else {
+                    // If the product is not in the cart, add it with a quantity of 1
+                    cart.push({
+                        id: productId,
+                        name: productData.title,
+                        price: productData.price,
+                        quantity: 1,
+                        image: productData.image,
+                    });
+                }
 
-                basketList.appendChild(listItem);
-                basketOffcanvas.show();
+                // Update the cart UI
+                updateCartUI();
+
+                // Update the total-quantity and span1 elements
+                const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+                totalQuantityElement.textContent = totalQuantity;
+                span1.textContent = totalQuantity;
             })
             .catch(error => {
                 console.error("Error fetching product:", error);
             });
     }
 
-    // Create a function to remove a product from the cart
+    // Create a function to remove an item from the cart
     function removeCartItem(productId) {
-        // Remove the item from the cart UI
-        const cartItems = basketList.querySelectorAll("li");
-        cartItems.forEach(item => {
-            const deleteButton = item.querySelector("button");
-            if (deleteButton.getAttribute("data-product-id") === productId.toString()) {
-                item.remove();
-            }
-        });
+        // Find the index of the product in the cart
+        const cartItemIndex = cart.findIndex(item => item.id === productId);
 
-        // Update the count in span1 and close the cart if it's empty
-        count--;
-        span1.textContent = count;
-        if (count === 0) {
-            basketOffcanvas.hide();
+        if (cartItemIndex !== -1) {
+            // If the product is in the cart, decrement its quantity
+            if (cart[cartItemIndex].quantity > 1) {
+                cart[cartItemIndex].quantity--;
+            } else {
+                // If the quantity is 1, remove the item from the cart
+                cart.splice(cartItemIndex, 1);
+            }
+
+            // Update the cart UI
+            updateCartUI();
+
+            // Update the total-quantity and span1 elements
+            const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+            totalQuantityElement.textContent = totalQuantity;
+            span1.textContent = totalQuantity;
         }
+    }
+
+
+    // Function to update the cart UI
+    function updateCartUI() {
+        basketList.innerHTML = ''; // Clear the cart list
+        cart.forEach(item => {
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+            listItem.innerHTML = `
+            <div>
+                <img src="${item.image}" alt="${item.name}" style="max-width: 50px; max-height: 50px;">
+                <span>${item.name}</span>
+            </div>
+            <div>
+                <span>$${item.price.toFixed(2)}</span>
+                <span>Quantity: ${item.quantity}</span>
+                <button class="btn btn-danger btn-sm ms-2" data-product-id="${item.id}">Delete</button>
+            </div>
+        `;
+
+            // Attach a click event listener to the delete button
+            const deleteButton = listItem.querySelector("button");
+            deleteButton.addEventListener("click", () => {
+                removeCartItem(item.id);
+            });
+
+            basketList.appendChild(listItem);
+        });
     }
 
     // Attach click event listeners to your product images (w1, w2, ...)
@@ -198,54 +276,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//new ic3
+//
+
+
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
-    var icon3 = document.getElementById("ic3");
-    var basketOffcanvas = new bootstrap.Offcanvas(document.getElementById("basketOffcanvas"));
-    var basketOffcanvasElement = document.getElementById("basketOffcanvas");
-
-    icon3.addEventListener("click", () => {
-        // Calculate the position for the offcanvas based on icon3's position
-        var icon3Rect = icon3.getBoundingClientRect();
-        const offsetX = window.innerWidth - 90 - basketOffcanvasElement.offsetWidth;
-        const offsetY = icon3Rect.bottom + 20;
-
-        // Set the calculated position for the offcanvas
-        basketOffcanvasElement.style.left = `${offsetX}px`;
-        basketOffcanvasElement.style.top = `${offsetY}px`;
-
-        basketOffcanvas.show(); // Open the offcanvas
-    });
-
-    // Get a reference to the custom close button by its ID
-    var customCloseButton = document.getElementById("customCloseButton");
-
-    // Attach a click event listener to the custom close button
-    customCloseButton.addEventListener("click", () => {
-        basketOffcanvas.hide(); // Close the offcanvas
-    });
-});
-
-
-
-
-// ---------------   total   -----
-
-
-
-
-// Function to calculate the total price of items in the cart
-document.addEventListener("DOMContentLoaded", function () {
-    const span1 = document.getElementById("span1");
+    const basketList = document.getElementById("basketList");
     const totalQuantityElement = document.getElementById("total-quantity");
     const totalPriceElement = document.getElementById("total-price");
-    const basketList = document.getElementById("basketList");
-    const basketOffcanvas = new bootstrap.Offcanvas(document.getElementById("basketOffcanvas"));
 
-    // Initialize the cart and count
+    // Create an array to store the items in the cart
     const cart = [];
-    let count = 0;
 
     // Function to update the total-quantity and total-price elements
     function updateCartInfo() {
@@ -253,45 +299,66 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
         totalQuantityElement.textContent = totalQuantity;
         totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-        span1.textContent = totalQuantity;
+        span1.textContent = totalQuantity; // Update span1 as well
     }
 
     // Create a function to add a product to the cart
     function addToCart(productId) {
-        axios.get(`https://fakestoreapi.com/products/${productId}`)
+        // Fetch all product data and find the selected product
+        axios.get("https://fakestoreapi.com/products")
             .then(response => {
-                const productData = response.data;
-                const existingItem = cart.find(item => item.id === productId);
+                const allProducts = response.data;
+                const product = allProducts.find(item => item.id === productId);
 
-                if (existingItem) {
-                    existingItem.quantity++;
+                if (product) {
+                    // Check if the product is already in the cart
+                    const existingItem = cart.find(item => item.id === productId);
+
+                    if (existingItem) {
+                        // Increment the quantity if the product is already in the cart
+                        existingItem.quantity++;
+                    } else {
+                        // Add the product to the cart with a quantity of 1
+                        cart.push({
+                            id: productId,
+                            name: product.title,
+                            price: product.price,
+                            quantity: 1,
+                            image: product.image,
+                        });
+                    }
+
+                    // Update the cart UI
+                    updateCartUI();
+
+                    // Update the total-quantity and total-price elements
+                    updateCartInfo();
                 } else {
-                    cart.push({
-                        id: productId,
-                        name: productData.title,
-                        price: productData.price,
-                        quantity: 1,
-                    });
+                    console.error("Product not found.");
                 }
-                updateCartUI();
-                updateCartInfo();
             })
             .catch(error => {
-                console.error("Error fetching product:", error);
+                console.error("Error fetching products:", error);
             });
     }
 
     // Create a function to remove an item from the cart
     function removeCartItem(productId) {
+        // Find the index of the item in the cart
         const itemIndex = cart.findIndex(item => item.id === productId);
 
         if (itemIndex !== -1) {
+            // Decrease the quantity or remove the item if the quantity is 1
             if (cart[itemIndex].quantity > 1) {
                 cart[itemIndex].quantity--;
             } else {
                 cart.splice(itemIndex, 1);
             }
+
+            // Update the cart UI
             updateCartUI();
+
+            // Update the total-quantity and total-price elements
             updateCartInfo();
         }
     }
@@ -304,6 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
             listItem.className = "list-group-item d-flex justify-content-between align-items-center";
             listItem.innerHTML = `
                 <div>
+                    <img src="${item.image}" alt="${item.name}" style="max-width: 50px; max-height: 50px;">
                     <span>${item.name}</span>
                 </div>
                 <div>
@@ -313,6 +381,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
 
+            // Attach a click event listener to the delete button
             const deleteButton = listItem.querySelector("button");
             deleteButton.addEventListener("click", () => {
                 removeCartItem(item.id);
@@ -321,8 +390,10 @@ document.addEventListener("DOMContentLoaded", function () {
             basketList.appendChild(listItem);
         });
     }
-    const productIds = [2, 3, 4, 7, 8, 10];
-    const productImages = ["w1", "w2", "w3", "w4", "w5", "w6"];
+
+    // Attach click event listeners to your product images (w1, w2, ...)
+    const productIds = [2, 3, 4, 7, 8, 10]; // Product IDs associated with w1, w2, ...
+    const productImages = ["w1", "w2", "w3", "w4", "w5", "w6"]; // IDs of your product images
     productImages.forEach((productImage, index) => {
         const element = document.getElementById(productImage);
         element.addEventListener("click", () => {
@@ -331,19 +402,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

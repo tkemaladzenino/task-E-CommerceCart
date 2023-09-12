@@ -475,3 +475,8 @@
           flex: 0 0 100%;
       }
   }
+
+  /* Hide the Offcanvas button */
+  button[data-bs-toggle="offcanvas"] {
+      display: none;
+  }
