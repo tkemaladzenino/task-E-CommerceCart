@@ -480,3 +480,9 @@
   button[data-bs-toggle="offcanvas"] {
       display: none;
   }
+
+  .max-height-offcanvas {
+      max-height: 80vh;
+      /* Adjust the value as needed */
+      overflow-y: auto;
+  }

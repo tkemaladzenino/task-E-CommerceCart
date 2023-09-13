@@ -30,97 +30,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// produqts in row1 and row2
-
-
-const productIdsRow1 = [2, 3, 4];
-const productIdsRow2 = [7, 8, 10];
-
-function populateProductsInRow(rowId, productIds) {
-    axios.get("https://fakestoreapi.com/products")
-        .then(response => {
-            const allProducts = response.data;
-            const productContainers = document.querySelectorAll(`#${rowId} .product`);
-
-            for (let i = 0; i < productIds.length; i++) {
-                const productId = productIds[i];
-                const product = allProducts.find(item => item.id === productId);
-                if (product) {
-                    const productContainer = productContainers[i];
-                    const imageElement = productContainer.querySelector('.image');
-                    const titleElement = productContainer.querySelector('.title');
-                    const ratingElement = productContainer.querySelector('.rating');
-                    const priceElement = productContainer.querySelector('.price');
-
-                    imageElement.innerHTML = `<img src="${product.image}" alt="${product.title}" />`;
-                    titleElement.textContent = product.title;
-                    ratingElement.textContent = `Rating: ${product.rating.rate}`;
-                    priceElement.textContent = `$${product.price.toFixed(2)}`;
-                }
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching products:", error);
-        });
-}
-
-populateProductsInRow("row1", productIdsRow1);
-populateProductsInRow("row2", productIdsRow2);
-
-
-
-
-
-//   on clickchange  span1 text content+
-
 document.addEventListener("DOMContentLoaded", function () {
-    const span1 = document.getElementById("span1");
+    // produqts in row1 and row2
+    const productIdsRow1 = [2, 3, 4];
+    const productIdsRow2 = [7, 8, 10];
 
-    const wishImage1 = document.getElementById("w1");
-    const wishImage2 = document.getElementById("w2");
-    const wishImage3 = document.getElementById("w3");
-    const wishImage4 = document.getElementById("w4");
-    const wishImage5 = document.getElementById("w5");
-    const wishImage6 = document.getElementById("w6");
+    function populateProductsInRow(rowId, productIds) {
+        axios.get("https://fakestoreapi.com/products")
+            .then(response => {
+                const allProducts = response.data;
+                const productContainers = document.querySelectorAll(`#${rowId} .product`);
+
+                for (let i = 0; i < productIds.length; i++) {
+                    const productId = productIds[i];
+                    const product = allProducts.find(item => item.id === productId);
+                    if (product) {
+                        const productContainer = productContainers[i];
+                        const imageElement = productContainer.querySelector('.image');
+                        const titleElement = productContainer.querySelector('.title');
+                        const ratingElement = productContainer.querySelector('.rating');
+                        const priceElement = productContainer.querySelector('.price');
+
+                        imageElement.innerHTML = `<img src="${product.image}" alt="${product.title}" />`;
+                        titleElement.textContent = product.title;
+                        ratingElement.textContent = `Rating: ${product.rating.rate}`;
+                        priceElement.textContent = `$${product.price.toFixed(2)}`;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching products:", error);
+            });
+    }
+
+    populateProductsInRow("row1", productIdsRow1);
+    populateProductsInRow("row2", productIdsRow2);
+
+    // on click change span1 text content
+    const span1 = document.getElementById("span1");
+    const wishImages = ["w1", "w2", "w3", "w4", "w5", "w6"];
     let count = 0;
 
-    wishImage1.addEventListener("click", () => {
-        count++;
-        span1.textContent = count;
+    wishImages.forEach(imageId => {
+        const wishImage = document.getElementById(imageId);
+        wishImage.addEventListener("click", () => {
+            count++;
+            span1.textContent = count;
+        });
     });
 
-    wishImage2.addEventListener("click", () => {
-        count++;
-        span1.textContent = count;
-    });
-
-    wishImage3.addEventListener("click", () => {
-        count++;
-        span1.textContent = count;
-    });
-
-    wishImage4.addEventListener("click", () => {
-        count++;
-        span1.textContent = count;
-    });
-
-    wishImage5.addEventListener("click", () => {
-        count++;
-        span1.textContent = count;
-    });
-
-    wishImage6.addEventListener("click", () => {
-        count++;
-        span1.textContent = count;
-    });
-});
-
-
-
-
-//new ic3  ofcanvas +
-
-document.addEventListener("DOMContentLoaded", function () {
+    // new ic3 offcanvas +
     const icon3 = document.getElementById("ic3");
     const basketOffcanvasElement = document.getElementById("offcanvasScrolling");
     const basketOffcanvas = new bootstrap.Offcanvas(basketOffcanvasElement);
@@ -142,39 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
             basketOffcanvas.hide();
         }
     });
-});
 
-
-
-
-
-//  sum prices in basketlist
-
-document.addEventListener("DOMContentLoaded", function () {
-    const basketList = document.getElementById("basketList");
-    const totalQuantityElement = document.getElementById("total-quantity");
-    const totalPriceElement = document.getElementById("total-price");
-
-    // Create an array to store the items in the cart
-    const cart = [];
-
-    // Function to update the total-quantity and total-price elements
-    function updateCartInfo() {
-        const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-        const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
-        totalQuantityElement.textContent = totalQuantity;
-        totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-        span1.textContent = totalQuantity; // Update span1 as well
-    }
-
-});
-
-
-
-
-//    -------       basketList  
-
-document.addEventListener("DOMContentLoaded", function () {
+    // sum prices in basketlist
     const basketList = document.getElementById("basketList");
     const totalQuantityElement = document.getElementById("total-quantity");
     const totalPriceElement = document.getElementById("total-price");
@@ -244,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 cart.splice(itemIndex, 1);
             }
 
+            // Update the cart UI
             updateCartUI();
 
             // Update the total-quantity and total-price elements
@@ -290,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
 
 
 
