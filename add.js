@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// produqts in row1 and row2
 
 
 const productIdsRow1 = [2, 3, 4];
@@ -70,7 +71,7 @@ populateProductsInRow("row2", productIdsRow2);
 
 
 
-//chose products +
+//   on clickchange  span1 text content+
 
 document.addEventListener("DOMContentLoaded", function () {
     const span1 = document.getElementById("span1");
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//new ic3 +
+//new ic3  ofcanvas +
 
 document.addEventListener("DOMContentLoaded", function () {
     const icon3 = document.getElementById("ic3");
@@ -147,8 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//  sum price in basketlist
-
+//  sum prices in basketlist
 
 document.addEventListener("DOMContentLoaded", function () {
     const basketList = document.getElementById("basketList");
@@ -167,123 +167,12 @@ document.addEventListener("DOMContentLoaded", function () {
         span1.textContent = totalQuantity; // Update span1 as well
     }
 
-
-
-
-
-    // Create a function to add a product to the cart
-    function addToCart(productId) {
-        // Fetch product data and add it to the cart
-        axios.get(`https://fakestoreapi.com/products/${productId}`)
-            .then(response => {
-                const productData = response.data;
-
-                // Find the index of the product in the cart
-                const cartItemIndex = cart.findIndex(item => item.id === productId);
-
-                if (cartItemIndex !== -1) {
-                    // If the product is already in the cart, increment its quantity
-                    cart[cartItemIndex].quantity++;
-                } else {
-                    // If the product is not in the cart, add it with a quantity of 1
-                    cart.push({
-                        id: productId,
-                        name: productData.title,
-                        price: productData.price,
-                        quantity: 1,
-                        image: productData.image,
-                    });
-                }
-
-                // Update the cart UI
-                updateCartUI();
-
-                // Update the total-quantity and span1 elements
-                const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-                totalQuantityElement.textContent = totalQuantity;
-                span1.textContent = totalQuantity;
-            })
-            .catch(error => {
-                console.error("Error fetching product:", error);
-            });
-    }
-
-    // Create a function to remove an item from the cart
-    function removeCartItem(productId) {
-        // Find the index of the product in the cart
-        const cartItemIndex = cart.findIndex(item => item.id === productId);
-
-        if (cartItemIndex !== -1) {
-            // If the product is in the cart, decrement its quantity
-            if (cart[cartItemIndex].quantity > 1) {
-                cart[cartItemIndex].quantity--;
-            } else {
-                // If the quantity is 1, remove the item from the cart
-                cart.splice(cartItemIndex, 1);
-            }
-
-            // Update the cart UI
-            updateCartUI();
-
-            // Update the total-quantity and span1 elements
-            const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-            totalQuantityElement.textContent = totalQuantity;
-            span1.textContent = totalQuantity;
-        }
-    }
-
-
-    // Function to update the cart UI
-    function updateCartUI() {
-        basketList.innerHTML = ''; // Clear the cart list
-        cart.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.className = "list-group-item d-flex justify-content-between align-items-center";
-            listItem.innerHTML = `
-            <div>
-                <img src="${item.image}" alt="${item.name}" style="max-width: 50px; max-height: 50px;">
-                <span>${item.name}</span>
-            </div>
-            <div>
-                <span>$${item.price.toFixed(2)}</span>
-                <span>Quantity: ${item.quantity}</span>
-                <button class="btn btn-danger btn-sm ms-2" data-product-id="${item.id}">Delete</button>
-            </div>
-        `;
-
-            // Attach a click event listener to the delete button
-            const deleteButton = listItem.querySelector("button");
-            deleteButton.addEventListener("click", () => {
-                removeCartItem(item.id);
-            });
-
-            basketList.appendChild(listItem);
-        });
-    }
-
-    // Attach click event listeners to your product images (w1, w2, ...)
-    const productIds = [2, 3, 4, 7, 8, 10]; // Product IDs associated with w1, w2, ...
-    const productImages = ["w1", "w2", "w3", "w4", "w5", "w6"]; // IDs of your product images
-    productImages.forEach((productImage, index) => {
-        const element = document.getElementById(productImage);
-        element.addEventListener("click", () => {
-            const productId = productIds[index];
-            addToCart(productId);
-        });
-    });
 });
 
 
 
 
-//
-
-
-
-
-
-
-
+//    -------       basketList  
 
 document.addEventListener("DOMContentLoaded", function () {
     const basketList = document.getElementById("basketList");
@@ -355,7 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 cart.splice(itemIndex, 1);
             }
 
-            // Update the cart UI
             updateCartUI();
 
             // Update the total-quantity and total-price elements
