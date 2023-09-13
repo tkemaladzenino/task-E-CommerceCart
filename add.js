@@ -95,12 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
         basketOffcanvas.show();
     });
 
-    // Add a click event listener to the document body to hide the offcanvas if it's open
-    document.body.addEventListener("click", () => {
-        if (basketOffcanvasElement.classList.contains("show")) {
-            basketOffcanvas.hide();
-        }
-    });
 
     // sum prices in basketlist
     const basketList = document.getElementById("basketList");
